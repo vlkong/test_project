@@ -18,12 +18,12 @@ try:
             self.root_is_pure = False
 
         def get_tag(self):
-            # we want to create a wheel for python3, per platform
+            # we want to create a wheel for current python major, per platform
             # On linux, we want to return manylinux tag
             python, abi, plat = super().get_tag()
             if plat == "linux_x86_64":
                 plat = "manylinux1_x86_64"
-            return "py3", "none", plat
+            return "py%s" % version_info[0], "none", plat
 
 except ImportError:
     bdist_wheel = None
