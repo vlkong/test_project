@@ -24,5 +24,6 @@ install:
    pip3 install --upgrade pip
 script:
    - mkdir bin
-   - wget http://ampl.com/dl/open/bonmin/bonmin-${BONMIN_ARCH}.zip
-   - unzip bonmin-${BONMIN_ARCH}.zip -d bin
+   - unzip distribs/bonmin-${BONMIN_ARCH}.zip -d bin
+   - python setup.py bdist_wheel
+   - ls -al dist/*
