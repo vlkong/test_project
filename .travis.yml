@@ -39,6 +39,8 @@ before_deploy:
    - git tag $TRAVIS_TAG
 deploy:
   provider: releases
+  on:
+    branch: "release_test"
   api_key: "${AUTOMATION_TOKEN}"
   file_glob: true
   file: dist/*.whl
