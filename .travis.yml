@@ -50,4 +50,4 @@ deploy:
   file_glob: true
   file: dist/*.whl
   skip_cleanup: true
-  draft: true
+
