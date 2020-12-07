@@ -26,4 +26,3 @@ script:
 	- mkdir bin
 	- wget http://ampl.com/dl/open/bonmin/bonmin-${BONMIN_ARCH}.zip
 	- unzip bonmin-${BONMIN_ARCH}.zip -d bin
-    
