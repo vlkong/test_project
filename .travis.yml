@@ -5,14 +5,12 @@ jobs:
         python: 3.8           # this works for Linux but is ignored on macOS or Windows
         env:
          - BONMIN_ARCH=linux64
-         - PYTHON_EXE=python3
       - name: "Python 3.7.4 on macOS"
         os: osx
         osx_image: xcode11.2  # Python 3.7.4 running on macOS 10.14.4
         language: shell       # 'language: python' is an error on Travis CI macOS
         env:
          - BONMIN_ARCH=osx
-         - PYTHON_EXE=python3
       - name: "Python 3.8.0 on Windows"
         os: windows           # Windows 10.0.17134 N/A Build 17134
         language: shell       # 'language: python' is an error on Travis CI Windows
@@ -22,14 +20,16 @@ jobs:
         env:
          - PATH=/c/Python38:/c/Python38/Scripts:$PATH
          - BONMIN_ARCH=win64
-         - PYTHON_EXE=python
 install:
    pip3 install --upgrade pip
 script:
    - mkdir bin
    - unzip distribs/bonmin-${BONMIN_ARCH}.zip -d bin
    - chmod a+x bin/*
-   - ${PYTHON_EXE} setup.py bdist_wheel
+   - if [ $TRAVIS_OS_NAME = 'win64' ]; then
+        python setup.py bdist_wheel
+     else
+        python3 setup.py bdist_wheel
    - ls -al dist/*
 before_deploy:
    - # Set up git user name and tag this commit
