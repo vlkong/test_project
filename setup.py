@@ -29,10 +29,24 @@ except ImportError:
     bdist_wheel = None
 
 
+if hasattr(tokenize, 'detect_encoding'):
+    try:
+        _detect_encoding = tokenize.detect_encoding
+    except AttributeError:
+        pass
+    else:
+        def detect_encoding(readline):
+            try:
+                return _detect_encoding(readline)
+            except SyntaxError:
+                return 'latin-1', []
+
+        tokenize.detect_encoding = detect_encoding
+
 def is_windows():
     return platform.system() in ('Windows', 'Microsoft')
 
-scripts = ["bin/bonmin.exe", "bin/libipoptfort.dll"] if is_windows() else ["bin/bonmin"] 
+scripts = ['bin/bonmin.exe', 'bin/libipoptfort.dll'] if is_windows() else ['bin/bonmin'] 
 
 HERE = os.path.abspath(os.path.dirname(__file__))
 
