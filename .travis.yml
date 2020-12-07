@@ -25,5 +25,5 @@ install:
 script:
    - mkdir bin
    - unzip distribs/bonmin-${BONMIN_ARCH}.zip -d bin
-   - python setup.py bdist_wheel
+   - python3 setup.py bdist_wheel
    - ls -al dist/*
