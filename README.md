@@ -1,2 +1,2 @@
-# bonmin_ipopt
-A pytthon package that installs bonmin and ipopt
+# Testing project
+A python package that installs bonmin and ipopt
