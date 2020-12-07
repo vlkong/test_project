@@ -26,10 +26,11 @@ script:
    - mkdir bin
    - unzip distribs/bonmin-${BONMIN_ARCH}.zip -d bin
    - chmod a+x bin/*
-   - if [ $TRAVIS_OS_NAME = 'win64' ]; then
+   - if [ $TRAVIS_OS_NAME = "win64" ]; then
         python setup.py bdist_wheel
      else
         python3 setup.py bdist_wheel
+     fi
    - ls -al dist/*
 before_deploy:
    - # Set up git user name and tag this commit
@@ -49,3 +50,4 @@ deploy:
   file_glob: true
   file: dist/*.whl
   skip_cleanup: true
+  draft: true
