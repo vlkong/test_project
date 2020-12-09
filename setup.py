@@ -6,6 +6,7 @@ import platform
 import tokenize
 from sys import version_info
 
+universal_wheel = True if os.environ.get("UNIVERSAL_WHEEL", "false") == "true" else False
 
 
 try:
@@ -15,7 +16,7 @@ try:
         def finalize_options(self):
             _bdist_wheel.finalize_options(self)
             # Mark us as not a pure python package
-            self.root_is_pure = False
+            self.root_is_pure = universal_wheel
 
         def get_tag(self):
             # we want to create a wheel for current python major, per platform
@@ -46,7 +47,10 @@ if hasattr(tokenize, 'detect_encoding'):
 def is_windows():
     return platform.system() in ('Windows', 'Microsoft')
 
-scripts = ['bin/bonmin.exe', 'bin/libipoptfort.dll'] if is_windows() else ['bin/bonmin'] 
+if universal_wheel:
+    scripts = None
+else:
+    scripts = ['bin/bonmin.exe', 'bin/libipoptfort.dll'] if is_windows() else ['bin/bonmin'] 
 
 HERE = os.path.abspath(os.path.dirname(__file__))
 
@@ -64,12 +68,12 @@ if readme is None:
     readme = 'A Python packaging for bonmin.'
 
 
-setup(name='bonmin',
+setup(name='bonmin_runtime_test',
+      packages=['bonmin_runtime_test'],
       version='1.0.0',
       author='Viu-Long Kong',
       description='A Python packaging for the bonmin solver.',
       long_description='%s\n' % readme,
-      packages=[],
       url='http://github.com/vlkong/test_package',
       license='Apache 2.0',
       cmdclass={'bdist_wheel': bdist_wheel},

@@ -1,6 +1,10 @@
 language: python
 jobs:
    include:
+      - name: "Python 3.8.0 on Xenial Linux - Universal wheel"
+        python: 3.8           # this works for Linux but is ignored on macOS or Windows
+        env:
+         - UNIVERSAL_WHEEL=true
       - name: "Python 3.8.0 on Xenial Linux"
         python: 3.8           # this works for Linux but is ignored on macOS or Windows
         env:
