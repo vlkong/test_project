@@ -6,7 +6,8 @@ import platform
 import tokenize
 from sys import version_info
 
-universal_wheel = True if os.environ.get("UNIVERSAL_WHEEL", "false") == "true" else False
+target_wheel = os.environ.get("TARGET_WHEEL", None)
+universal_wheel = True if target_wheel == "universal" else False
 
 
 try:
@@ -22,8 +23,12 @@ try:
             # we want to create a wheel for current python major, per platform
             # On linux, we want to return manylinux tag
             python, abi, plat = super().get_tag()
-            if plat == "linux_x86_64":
-                plat = "manylinux1_x86_64"
+            if not universal_wheel:
+                if target_wheel is not None and target_wheel != "universal":
+                    plat = target_wheel
+                else:
+                    if plat == "linux_x86_64":
+                        plat = "manylinux1_x86_64"
             return "py%s" % version_info[0], "none", plat
 
 except ImportError:
