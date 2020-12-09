@@ -16,9 +16,9 @@ before_deploy:
 deploy:
   provider: releases
   on:
-    branch: "monobuild"
+    all_branches: true
   api_key: "${AUTOMATION_TOKEN}"
   file_glob: true
   file: dist/*.whl
   skip_cleanup: true
-
+  overwrite: true
