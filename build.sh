@@ -15,7 +15,7 @@ do
 	   *) spec=$target
 	esac
 	# uncompress binaries if appropriate
-	[ ! -d bin ] && mkdir -f bin
+	[ ! -d bin ] && mkdir bin
 	[ ! $spec = "universal" ] && (unzip distribs/bonmin-${target}.zip -d bin && chmod -f a+x bin/*)
     TARGET_WHEEL=$spec python3 setup.py bdist_wheel
 done

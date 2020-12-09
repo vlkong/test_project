@@ -8,7 +8,7 @@ from sys import version_info
 
 target_wheel = os.environ.get("TARGET_WHEEL", None)
 universal_wheel = True if target_wheel == "universal" else False
-
+is_windows = (target_wheel == "win_amd64")
 
 try:
     from wheel.bdist_wheel import bdist_wheel as _bdist_wheel
@@ -49,13 +49,10 @@ if hasattr(tokenize, 'detect_encoding'):
 
         tokenize.detect_encoding = detect_encoding
 
-def is_windows():
-    return platform.system() in ('Windows', 'Microsoft')
-
 if universal_wheel:
     scripts = None
 else:
-    scripts = ['bin/bonmin.exe', 'bin/libipoptfort.dll'] if is_windows() else ['bin/bonmin'] 
+    scripts = ['bin/bonmin.exe', 'bin/libipoptfort.dll'] if is_windows else ['bin/bonmin'] 
 
 HERE = os.path.abspath(os.path.dirname(__file__))
 
