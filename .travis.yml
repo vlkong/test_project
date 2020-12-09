@@ -20,7 +20,7 @@ jobs:
         language: shell       # 'language: python' is an error on Travis CI Windows
         before_install:
          - choco install python --version 3.8.0
-         - python -m pip install --upgrade pip
+         - python -m pip install --upgrade pip wheel
         env:
          - PATH=/c/Python38:/c/Python38/Scripts:$PATH
          - BONMIN_ARCH=win64
@@ -28,7 +28,9 @@ install:
    pip3 install --upgrade pip
 script:
    - mkdir bin
-   - unzip distribs/bonmin-${BONMIN_ARCH}.zip -d bin
+   - if [ "$UNIVERSAL_WHEEL" != "true" ]; then
+        unzip distribs/bonmin-${BONMIN_ARCH}.zip -d bin;
+     fi
    - chmod a+x bin/*
    - if [ "$TRAVIS_OS_NAME" = "windows" ]; then
         python setup.py bdist_wheel;
