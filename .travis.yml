@@ -31,7 +31,7 @@ script:
    - if [ "$UNIVERSAL_WHEEL" != "true" ]; then
         unzip distribs/bonmin-${BONMIN_ARCH}.zip -d bin;
      fi
-   - chmod a+x bin/*
+   - chmod -f a+x bin/*
    - if [ "$TRAVIS_OS_NAME" = "windows" ]; then
         python setup.py bdist_wheel;
      else
