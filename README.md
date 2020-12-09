@@ -42,7 +42,7 @@ The `.travis` and `build.sh` scripts are starting point to configure automation.
 `.travis` setups the environment, then call `build.sh` to create wheels, then wheels are deployed with
 the github release deployer. This just upload the wheels in the release section of github. If the build
 is untagged (regular dev/master branches), wheels are uploaded in a release called package-BRANCH-latest
-(example: https://github.com/vlkong/test_project/releases/tag/monobuild-latest)
+(example: https://github.com/vlkong/test_project/releases/tag/example_dev_branch-latest)
 
 If the build is tagged (like from a release, wheels are uploaded as package-TAG (example: TBD)
 
