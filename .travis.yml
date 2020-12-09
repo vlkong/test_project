@@ -26,7 +26,7 @@ script:
    - mkdir bin
    - unzip distribs/bonmin-${BONMIN_ARCH}.zip -d bin
    - chmod a+x bin/*
-   - if [ "$TRAVIS_OS_NAME" = "win64" ]; then
+   - if [ "$TRAVIS_OS_NAME" = "windows" ]; then
         python setup.py bdist_wheel;
      else
         python3 setup.py bdist_wheel;
@@ -39,9 +39,9 @@ before_deploy:
    - if [ "x$TRAVIS_TAG" != "x" ]; then
         export TRAVIS_TAG=${TRAVIS_TAG} ;
      else
-        export TRAVIS_TAG=${TRAVIS_BRANCH}-latest ;
+        export TRAVIS_TAG=${TRAVIS_BRANCH}-latest ; \
+        git tag -f $TRAVIS_TAG ;
      fi
-   - git tag $TRAVIS_TAG
 deploy:
   provider: releases
   on:
